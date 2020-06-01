@@ -1,37 +1,37 @@
 import axios from 'axios';
-import mongoose from 'mongoose';
+import mongoose, { get } from 'mongoose';
+import { fromEvent, asyncScheduler, Observable, interval, from, of } from 'rxjs';
 import User from './models/user';
 import Tale from './models/tale';
+import crawler from './Service/crawler'
 
-mongoose.connect('mongodb+srv://isk030:' + process.env.MONGO_ATLAS_PW + '@cluster0-xfnrc.mongodb.net/test?retryWrites=true&w=majority',
+
+main();
+
+
+async function connectDb() {
+    console.log("connecting to DB...");
+    await mongoose.connect('mongodb+srv://isk030:' + process.env.MONGO_ATLAS_PW + '@cluster0-xfnrc.mongodb.net/test?retryWrites=true&w=majority',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true
-    });
+    }, function(error){
+        if(error) {
+            console.log(error);
+        }else {
+            console.log("DB connected");
+        }
+    })
+
+}
+
+async function main() {
+    await connectDb();
+    console.log("hello")
+    crawler.getAllUrls();
+}
 
 
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    console.log("Database connected");
-});
-
-const user = new User({
-    _id: new mongoose.Types.ObjectId(),
-    email: "europa@gmail.com",
-    password: "Hash"
-});
-
-const tale = new Tale({
-    _id: new mongoose.Types.ObjectId(),
-    title: "Schneewittchen",
-    author: "Grimm Brüder",
-    content: "Es war einmal irgendwas...",
-    url: "www.geil.de"
-});
-
-console.log(JSON.stringify(user));
-console.log(JSON.stringify(tale));
 
