@@ -3,67 +3,77 @@ import cheerio from 'cheerio';
 import Tale from '../models/tale';
 import mongoose from 'mongoose';
 import { fromEvent, asyncScheduler, Observable, interval, from, of } from 'rxjs';
-import { throttleTime, withLatestFrom, filter, switchMap, map, mergeMap } from 'rxjs/operators';
+import { throttleTime, withLatestFrom, filter, switchMap, map, mergeMap, concatMap} from 'rxjs/operators';
 
 
+const allLinks = new Array();
 
+function saveTale(tale) {
 
-function getOneTale(url){
-    const Http$ = from(axios.get("http://maerchen.com/andersen/der-tannenbaum.php"));
-
-    Http$
-        .pipe(map(result => result.data))
-        .subscribe(doc => {
-            const $ = cheerio.load(doc);
-            const contentwrapper = $('.contentwrapper');
-
-            const tale = new Tale({
-                _id: new mongoose.Types.ObjectId(),
-                title: contentwrapper.find('h1').text(),
-                author: contentwrapper.find('.autor').text(),
-                url: "http://maerchen.com/andersen/der-tannenbaum.php",
-                content: ($('.contentwrapper').children().remove().end().text().replace(/\n/g, ' ')).trim()
-                
-            });
-            console.log(tale);
-            // tale.save(function (err, tale) {
-            //     if (err) {
-            //         return console.error(err);
-            //     }else {
-                    console.log("saved successfully");
-                // }
-              });
-
-        // })
+    tale.save(function (err, tale) {
+        if (err) {
+            return console.error(err);
+        }else {
+            console.log("saved successfully");
+        }
+    })
 }
 
-function getAllUrls(){
-    const urls = ['https://maerchen.com/grimm/',
-    'https://maerchen.com/grimm2/',
-    'https://maerchen.com/andersen/',
-    'https://maerchen.com/bechstein/',
-    'https://maerchen.com/wolf/']
 
-    for (let taleUrl of urls) {
-        const taleUrls = [];
-        const Http$ = from(axios.get(taleUrl));
+function fetchTale(url) {
+    return from(axios.get(url).catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.error(error.response.status);
+
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.error(error.request +"lol2");
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error('Error', error.message);
+        }
+      }))     
+}   
 
 
-        Http$
-        .pipe(map(result => result.data))
+function getTaleUrls(){
+    const urls = ['https://maerchen.com/wolf/der-fischerssohn-der-rappe-und-der-schimmel.php',
+    'https://maerchen.com/wolf/das-schneiderlein-und-die-drei-hunde.php',
+    'https://maerchen.com/wolf/die-prinzessin-von-tiefental.php',
+    'https://maerchen.com/wolf/die-prinzessin-von-tiefental.php',
+    'https://maerchen.com/wolf/die-prinzessin-von-tiefental.php']
+
+
+    const url$ = from(urls)
+
+    url$
+        .pipe(  concatMap(url => fetchTale(url)),
+                map(result => result.data))
         .subscribe(doc => {
-            const $ = cheerio.load(doc);
-            const contentwrapper = $('.contentwrapper');
-             
-            console.log(contentwrapper.find('a').map(function(i, el){
-                return $(this).attr('href');
-            }).get())
-    }
+                                const $ = cheerio.load(doc);
+                                const contentwrapper = $('.contentwrapper');
+        
+                                    const tale = new Tale({
+                                    _id: new mongoose.Types.ObjectId(),
+                                    title: contentwrapper.find('h1').text(),
+                                    author: contentwrapper.find('.autor').text(),
+                                    url: "hans",
+                                    content: ($('.contentwrapper').children().remove().end().text().replace(/\n/g, ' ')).trim() 
+                                    
+                                })
+                                
+
+                            console.log(tale)
+                            },
+                            err => {'OOPS', console.error(err.message)},
+                            () => {console.log("We're done here!")})
+}
 
 
-        )}}
 
 
-
-
-export default {getOneTale, getAllUrls}
+export default {getTaleUrls}
