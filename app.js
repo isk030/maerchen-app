@@ -29,7 +29,7 @@ async function connectDb() {
 async function main() {
     await connectDb();
     console.log("hello")
-    crawler.getTaleUrls();
+    crawler.urlsReady();
 }
 
 

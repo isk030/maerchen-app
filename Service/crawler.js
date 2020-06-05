@@ -3,10 +3,10 @@ import cheerio from 'cheerio';
 import Tale from '../models/tale';
 import mongoose from 'mongoose';
 import { fromEvent, asyncScheduler, Observable, interval, from, of } from 'rxjs';
-import { throttleTime, withLatestFrom, filter, switchMap, map, mergeMap, concatMap} from 'rxjs/operators';
+import { throttleTime, withLatestFrom, filter, switchMap, map, mergeAll, concatMap, toArray, flatMap} from 'rxjs/operators';
 
 
-const allLinks = new Array();
+let allLinks = new Array();
 
 function saveTale(tale) {
 
@@ -38,6 +38,45 @@ function fetchTale(url) {
         }
       }))     
 }   
+
+function start() {
+    const urls = ['https://maerchen.com/grimm/',
+    'https://maerchen.com/grimm2/',
+    'https://maerchen.com/andersen/',
+    'https://maerchen.com/bechstein/',
+    'https://maerchen.com/wolf/']
+
+    return from(urls)
+        .pipe(  concatMap(url => {return from(axios.get(url))}),
+                map(result => result.data),
+                map(x => {
+                    let $ = cheerio.load(x);
+                    let contentwrapper = $('.contentwrapper');
+
+                    let res = contentwrapper.find('a').map(function(i, el) {
+                    return $(this).attr('href');
+                    }).get()
+
+                    return res
+                }),
+                mergeAll(),
+                toArray())
+            }
+
+
+function urlsReady() {
+    let lol = start();
+    lol.subscribe(doc => {
+            
+       // allLinks = doc.flatMap(x=> {return x})
+        console.log(doc)
+        console.log(doc.length)
+    })
+    // const realLinks = await allLinks.flatMap(x=> {return x}); 
+    // console.log(realLinks); 
+    // console.log(realLinks.length)
+    
+}
 
 
 function getTaleUrls(){
@@ -76,4 +115,4 @@ function getTaleUrls(){
 
 
 
-export default {getTaleUrls}
+export default {getTaleUrls, urlsReady}
