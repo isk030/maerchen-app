@@ -12,22 +12,22 @@ main();
 async function connectDb() {
     console.log("connecting to DB...");
     await mongoose.connect('mongodb+srv://isk030:' + process.env.MONGO_ATLAS_PW + '@cluster0-xfnrc.mongodb.net/test?retryWrites=true&w=majority',
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true
-    }, function(error){
-        if(error) {
-            console.log(error);
-        }else {
-            console.log("DB connected");
-        }
-    })
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true
+        }, function (error) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("DB connected");
+            }
+        })
 
 }
 
 async function main() {
-    await connectDb();
+    // await connectDb();
     console.log("hello")
     crawler.urlsReady();
 }
