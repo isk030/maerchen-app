@@ -27,7 +27,7 @@ async function connectDb() {
 }
 
 async function main() {
-    // await connectDb();
+    await connectDb();
     console.log("hello")
     crawler.urlsReady();
 }
