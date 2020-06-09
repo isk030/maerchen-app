@@ -25,14 +25,14 @@ function start() {
         'https://maerchen.com/bechstein/',
         'https://maerchen.com/wolf/']
 
-    return from(linksToTale) // get link to tale collections
-        .pipe(concatMap(linkToTale => { return from(axios.get(linkToTale)) }), // axios request of html
-            map(result => [result.data, result.config.url]), // clean axios object for real html fetch
-            map(doc => scrapeUrls(doc[0], doc[1])), // scrape html for links to each tale
-            mergeAll(),                             // put each link into flat manner
-            concatMap(url => {return from(axios.get(url))}),  // axios request of html for tale html
-            map(result => [result.data,result.config.url ]), // extract real html of axios object
-            map(doc => scrapeTales(doc[0], doc[1])) // scrape each tale and convert into object
+    return from(linksToTale)                                                    // get link to tale collections
+        .pipe(concatMap(linkToTale => { return from(axios.get(linkToTale)) }),  // axios request of html
+            map(result => [result.data, result.config.url]),                    // clean axios object for real html fetch
+            map(doc => scrapeUrls(doc[0], doc[1])),                             // scrape html for links to each tale
+            mergeAll(),                                                         // put each link into flat manner
+            concatMap(url => {return from(axios.get(url))}),                    // axios request of html for tale html
+            map(result => [result.data,result.config.url ]),                    // extract real html of axios object
+            map(doc => scrapeTales(doc[0], doc[1]))                             // scrape each tale and convert into object
             )
 }
 
