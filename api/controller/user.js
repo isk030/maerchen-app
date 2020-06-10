@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-// import bcrypt from 'bcrypt';
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'
 import User from '../../models/user'
 
 const user_signup = (req, res, next) => {
@@ -44,6 +44,70 @@ const user_signup = (req, res, next) => {
  
 }
 
+const user_login = (req, res, next) => {
+    User.find({email: req.body.email})
+        .exec()
+        .then(user => {
+            if (user.length < 1) {
+                return res.status(401).json({
+                    message: 'Auth failed'
+                })
+            }
+            bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+                if (err) {
+                    return res.status(401).json({
+                        message: 'Auth failed'
+                    });
+                }
+                if (result) {
+                    const token = jwt.sign({
+                        email: user[0].email,
+                        userId: user[0]._id
+                    }, process.env.JWT_KEY, 
+                    {
+                        expiresIn: "1h"
+                    }
+                    );
+                    return  res.status(200).json({
+                        message: 'Auth successful',
+                        token: token
+                    });
+                }
+                res.status(401).json({
+                    message: 'Auth failed'
+                });
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
+const user_addfavs = (req, res, next) => {
+    const id = req.params.userId;
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+    User.update({_id: id}, {$set: updateOps})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Product updated',
+                result: result
+            });
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                error: err
+            });
+        });
+}
 
 
-export default {user_signup};
+
+export default {user_signup, user_login, user_addfavs};
