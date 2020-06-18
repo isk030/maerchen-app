@@ -1,0 +1,40 @@
+.card {
+	width: 600px;
+	-webkit-box-shadow: 2px 2px 10px -1px rgba(0,0,0,0.4); 
+	box-shadow: 2px 2px 10px -1px rgba(0,0,0,0.4);
+	border-radius: 50px 50px 50px 50px;
+	border-width: 2px;
+	
+}
+
+.nav{
+	-webkit-box-shadow: 2px 2px 10px -1px rgba(0,0,0,0.4); 
+	box-shadow: 2px 2px 10px -1px rgba(0,0,0,0.4);
+	border-radius: 0px 0px 50px 50px;
+	
+
+}
+
+.divider {
+	border-width: 2px;
+	border-color: rgb(167, 167, 167);
+}
+
+.list-group{
+    max-height: 250px;
+	margin-bottom: 10px;
+	padding: 3px;
+	overflow:scroll;
+	overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+#favList{
+	max-height: 300px;
+	margin-bottom: 10px;
+	padding: 3px;
+	overflow:scroll;
+	overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+

@@ -70,7 +70,9 @@ const user_login = (req, res, next) => {
                     );
                     return  res.status(200).json({
                         message: 'Auth successful',
-                        token: token
+                        token: token,
+                        _id : user[0]._id,
+                        favs: user[0].favs
                     });
                 }
                 res.status(401).json({
@@ -88,16 +90,12 @@ const user_login = (req, res, next) => {
 
 const user_addfavs = (req, res, next) => {
     const id = req.params.userId;
-    const updateOps = {};
-    for (const ops of req.body) {
-        updateOps[ops.propName] = ops.value;
-    }
-    User.update({_id: id}, {$set: updateOps})
+    const favs = (req.body.favs)
+    User.updateOne({_id: id}, {$set: {favs: favs}})
         .exec()
         .then(result => {
             res.status(200).json({
-                message: 'Product updated',
-                result: result
+                message: 'favs updated'
             });
         })
         .catch(err => {
@@ -106,7 +104,8 @@ const user_addfavs = (req, res, next) => {
                 error: err
             });
         });
-}
+    }
+
 
 
 

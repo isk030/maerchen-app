@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 const tales_get_all = (req, res, next) => {
     Tale.find()
-    .select('title author _id url')
+    .select('title author _id url content')
         .exec()
         .then(docs => {
             res.status(200).json({
