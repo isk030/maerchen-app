@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start" : "nodemon -r esm ./server.js"
   },
+  "engines": {
+    "node": "14.2.0"
+  },
   "author": "Iskender Dilaver",
   "license": "MIT",
   "dependencies": {
