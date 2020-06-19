@@ -1,1 +1,1 @@
-web: node -r server.js
+web: node -r esm server.js
