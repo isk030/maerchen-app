@@ -40,7 +40,7 @@ $(document).ready(function () {
 
     $.ajax({
       type:'GET',
-      url: 'https://radiant-journey-93284.herokuapp.com/tale',
+      url: 'http://localhost:3000/tale',
       success: function(data) {
         taleList = data;
         // console.log(data)
@@ -57,7 +57,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: 'POST',
-      url: 'https://radiant-journey-93284.herokuapp.com/user/signup',
+      url: 'http://localhost:3000/user/signup',
       data: {
         email: email.toString(),
         password: password.toString()
@@ -82,7 +82,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: 'POST',
-      url: 'https://radiant-journey-93284.herokuapp.com/user/login',
+      url: 'http://localhost:3000/user/login',
       data: {
         email: email.toString(),
         password: password.toString()
@@ -112,44 +112,13 @@ $(document).ready(function () {
 $(document).on('click', '#addFav', async function() {
   let taleId = await $('#tales > div').attr('id');
 
+  await favarr.push(taleId)
   $favList.append('<li id="'+taleList.tales.find(el => el._id == taleId)._id+'" class="list-group-item list-group-item-action" >'+taleList.tales.find(el => el._id == taleId).title+'</li>')
   console.log(favarr)
 
   $.ajax({
     type: 'PATCH',
-    url: 'https://radiant-journey-93284.herokuapp.com/user/'+userId,
-    beforeSend: function (json) {
-      /* Authorization header */
-      json.setRequestHeader("Authorization", "Bearer " + token);
-  },
-  contentType: 'application/json',
-  dataTyoe: 'json',
-    data: JSON.stringify({favs: taleId}),
-    statusCode: {
-      500: function(data) {
-        alert("Etwas ging schief. Versuche es nochmal")
-      },
-      409: function(data) {
-        alert(JSON.stringify(data.responseJSON.message))
-      }
-    }
-  }).done(function(data){
-    alert(JSON.stringify(data.message))
-})
-})
-
-
-$(document).on('click', '#removeFav', async function() {
-  let taleId = await $('#tales > div').attr('id');
-  let index = favarr.indexOf(taleId);
-
-  await favarr.splice(index, 1);
-  $('#favList > #'+taleId+'').remove();
-  console.log(favarr)
-
-  $.ajax({
-    type: 'PATCH',
-    url: 'https://radiant-journey-93284.herokuapp.com/user/'+userId,
+    url: 'http://localhost:3000/user/'+userId,
     beforeSend: function (json) {
       /* Authorization header */
       json.setRequestHeader("Authorization", "Bearer " + token);
