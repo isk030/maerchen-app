@@ -40,7 +40,7 @@ $(document).ready(function () {
 
     $.ajax({
       type:'GET',
-      url: 'http://localhost:3000/tale',
+      url: 'https://radiant-journey-93284.herokuapp.com/tale',
       success: function(data) {
         taleList = data;
         // console.log(data)
@@ -57,7 +57,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:3000/user/signup',
+      url: 'https://radiant-journey-93284.herokuapp.com/user/signup',
       data: {
         email: email.toString(),
         password: password.toString()
@@ -82,7 +82,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:3000/user/login',
+      url: 'https://radiant-journey-93284.herokuapp.com/user/login',
       data: {
         email: email.toString(),
         password: password.toString()
@@ -102,6 +102,7 @@ $(document).ready(function () {
         
           $.each(data.favs, function(i, el) {
             const tale = taleList.tales.find(t => t._id == el)
+            favarr.push(tale)
             console.log(tale)
             $favList.append('<li id="'+el+'" class="list-group-item list-group-item-action" >'+tale.title+'</li>')
           })
@@ -118,7 +119,7 @@ $(document).on('click', '#addFav', async function() {
 
   $.ajax({
     type: 'PATCH',
-    url: 'http://localhost:3000/user/'+userId,
+    url: 'https://radiant-journey-93284.herokuapp.com/user/'+userId,
     beforeSend: function (json) {
       /* Authorization header */
       json.setRequestHeader("Authorization", "Bearer " + token);
@@ -138,6 +139,37 @@ $(document).on('click', '#addFav', async function() {
     alert(JSON.stringify(data.message))
 })
 })
+
+$(document).on('click', '#removeFav', async function() {
+  let taleId = await $('#tales > div').attr('id');
+  let index = favarr.indexOf(taleId);
+  favarr.splice(index)
+  $('#favList > #'+taleId+'').remove();
+  console.log(favarr)
+
+  $.ajax({
+    type: 'PATCH',
+    url: 'https://radiant-journey-93284.herokuapp.com/user/'+userId,
+    beforeSend: function (json) {
+      /* Authorization header */
+      json.setRequestHeader("Authorization", "Bearer " + token);
+  },
+  contentType: 'application/json',
+  dataTyoe: 'json',
+    data: JSON.stringify({favs: favarr}),
+    statusCode: {
+      500: function(data) {
+        alert("Etwas ging schief. Versuche es nochmal")
+      },
+      409: function(data) {
+        alert(JSON.stringify(data.responseJSON.message))
+      }
+    }
+  }).done(function(data){
+    alert(JSON.stringify(data.message))
+})
+})
+
 
 
 
