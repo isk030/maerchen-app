@@ -5,19 +5,19 @@ import mongoose from 'mongoose';
  * Initial Schema for mongoose user model
  */
 const taleSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
-    title:  {type: String,
-            required: true,
-            unique: true},
+	_id: mongoose.Schema.Types.ObjectId,
+	title:  {type: String,
+		required: true,
+		unique: true},
 
-    author: {type: String,
-            required: true},
+	author: {type: String,
+		required: true},
 
-    content:    {type: String,
-                required: true},
+	content:{type: String,
+		required: true},
 
-    url:    {type: String,
-            required: true}
+	url:    {type: String,
+		required: true}
 });
 
 // class Tale{
@@ -29,4 +29,4 @@ const taleSchema = mongoose.Schema({
 //     }
 // }
 
-export default mongoose.model('Tales', taleSchema)
+export default mongoose.model('Tales', taleSchema);

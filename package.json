@@ -27,5 +27,8 @@
     "mongoose": "^5.9.15",
     "morgan": "^1.10.0",
     "rxjs": "^6.5.5"
+  },
+  "devDependencies": {
+    "eslint": "^7.3.0"
   }
 }
