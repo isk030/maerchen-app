@@ -1,5 +1,11 @@
+/**
+ * Checking Auth with JsonwebToken
+ * @module Service/checkAuth
+ */
 import jwt from 'jsonwebtoken';
-
+/**
+ * Verifying credentials with delivered webtoken in login process
+ */
 const checkAuth = (req, res, next) => {
 	try {
 		const token = req.headers.authorization.split(' ')[1];
@@ -14,6 +20,5 @@ const checkAuth = (req, res, next) => {
 	}
 
 };
-
 
 export default checkAuth;

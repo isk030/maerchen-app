@@ -1,9 +1,12 @@
+/**
+ * Defining routes for users of the api section
+ * @module API/routes/user
+ */
 import UserController from '../controller/user';
 import express from 'express';
 import checkAuth from '../../Service/check-auth';
 
 const router = express.Router();
-
 
 router.post('/signup', UserController.user_signup);
 router.post('/login', UserController.user_login);

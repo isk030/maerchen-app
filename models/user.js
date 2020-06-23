@@ -1,6 +1,8 @@
+/**
+ * Mongoose scheme for users
+ * @module Models/user
+ */
 import mongoose from 'mongoose';
-
-
 /**
  * Initial Schema for mongoose user model
  */
@@ -14,7 +16,5 @@ const userSchema = mongoose.Schema({
 	favs: [{type: String}]
 });
 
-
 export default mongoose.model('User', userSchema);
-
 

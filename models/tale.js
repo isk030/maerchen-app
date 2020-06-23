@@ -1,8 +1,11 @@
+/**
+ * Mongoose scheme for tales
+ * @module Models/tale
+ */
 import mongoose from 'mongoose';
 
-
 /**
- * Initial Schema for mongoose user model
+ * Initial Schema for mongoose tale model
  */
 const taleSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
@@ -19,14 +22,5 @@ const taleSchema = mongoose.Schema({
 	url:    {type: String,
 		required: true}
 });
-
-// class Tale{
-//     constructor(title, author, content, url) {
-//         this.title;
-//         this.author;
-//         this.content;
-//         this.url;
-//     }
-// }
 
 export default mongoose.model('Tales', taleSchema);

@@ -1,4 +1,10 @@
+/**
+ * Tale controller for delivering all tales to client
+ * @module API/Controller/tales
+ **/
+
 /* eslint-disable no-unused-vars */
+
 import Tale from '../../models/tale';
 
 const tales_get_all = (_req, res, _next) => {
