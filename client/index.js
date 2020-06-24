@@ -42,7 +42,6 @@ $(document).ready(function () {
 		url: serverUrl+'/tale',
 		success: function(data) {
 			taleList = data;
-			// console.log(data)
 			$.each(data.tales, function(i, el) {
 				$talesList.append('<li id="'+el._id+'" class="list-group-item list-group-item-action" >'+el.title+'</li>');
 			});

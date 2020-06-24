@@ -5,6 +5,8 @@ maerchen-app
 This is my first Node.js project, which crawls german tales from https://www.maerchen.com and providing them with express in RESTful API manner.
 Its a simple app for searching and reading tales
 
+Comments and documentation can be found here: https://maerchen-doc.herokuapp.com/
+
 ----------
 Installation
 -------------
