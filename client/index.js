@@ -107,11 +107,10 @@ $(document).ready(function () {
 			alert(JSON.stringify(data.message));
 			token = data.token;
 			userId = data._id;
-        
+			favarr = [];
 			$.each(data.favs, function(i, el) {
 				const tale = taleList.tales.find(t => t._id == el);
-				favarr.push(tale);
-				console.log(tale);
+				favarr.push(tale._id);
 				$favList.append('<li id="'+el+'" class="list-group-item list-group-item-action" >'+tale.title+'</li>');
 			});
 		});
@@ -129,7 +128,6 @@ $(document).ready(function () {
 		 */
 		await favarr.push(taleId);
 		$favList.append('<li id="'+taleList.tales.find(el => el._id == taleId)._id+'" class="list-group-item list-group-item-action" >'+taleList.tales.find(el => el._id == taleId).title+'</li>');
-		console.log(favarr);
 
 		/**
 		 * PATCH request to update favs in DB including authorization with JWT
@@ -163,9 +161,8 @@ $(document).ready(function () {
 	$(document).on('click', '#removeFav', async function() {
 		let taleId = await $('#tales > div').attr('id');
 		let index = favarr.indexOf(taleId);
-		favarr.splice(index);
+		favarr.splice(index,1);
 		$('#favList > #'+taleId+'').remove();
-		console.log(favarr);
 
 		/**
 		 * PATCH request updating current favourites
