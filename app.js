@@ -50,7 +50,7 @@ api.use('/tale', talesRoutes);
  * Default response for empty route for checking api status
  */
 api.get('/', function (req, res) {
-	res.status(200).send('Hello World!');
+	res.status(200).send('Maerchen API ist up!');
 });
 
 /**
@@ -103,7 +103,6 @@ async function connectDb() {
 async function main() {
     
 	await connectDb();
-	console.log('hello');
 
 	if (await Tale.countDocuments({}) == 373) { // check amount of Tales before crawling
 		console.log('Crawling not needed');
