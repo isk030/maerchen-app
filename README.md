@@ -17,7 +17,7 @@ I scripted nodemon with``` npm start```
 Architecture
 -------------
 Modules:
-![Drag Racing](C:\Users\Izzy\Desktop\Studium\Webprog\märchen-app-arch.png)
+![Architecture](https://github.com/isk030/maerchen-app/raw/master/m%C3%A4rchen-app-arch.png)
 
 Application Flow:
 
