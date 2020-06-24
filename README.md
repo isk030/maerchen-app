@@ -20,10 +20,10 @@ Modules:
 ![Architecture](https://github.com/isk030/maerchen-app/raw/master/m%C3%A4rchen-app-arch.png)
 -------------
 
-![Flow](https://github.com/isk030/maerchen-app/raw/master/Flow.png)
+![Flow](https://github.com/isk030/maerchen-app/raw/master/Flow.PNG)
 -------------
 
-![Sequence](https://github.com/isk030/maerchen-app/raw/master/sequence.png)
+![Sequence](https://github.com/isk030/maerchen-app/raw/master/sequence.PNG)
 
 
 ----------
