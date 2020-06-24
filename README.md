@@ -1,58 +1,29 @@
-#maerchen-app
-
+maerchen-app
+===================
 
 
 This is my first Node.js project, which crawls german tales from https://www.maerchen.com and providing them with express in RESTful API manner.
 Its a simple app for searching and reading tales
 
 ----------
-##Installation
-
+Installation
+-------------
 My Project uses ES6 code style so you need to ``` node -r esm ./server.js ```
 I scripted nodemon with``` npm start```
  
 ----------
 
 
-##Architecture
-
+Architecture
+-------------
 Modules:
 ![Architecture](https://github.com/isk030/maerchen-app/raw/master/m%C3%A4rchen-app-arch.png)
+-------------
 
-Application Flow:
+![Flow](https://github.com/isk030/maerchen-app/raw/master/Flow.png)
+-------------
 
-```mermaid
-graph TD
-A[Host Server and listen] --> B[Connect to DB]
-B --> C{Enough tales in DB?}
-C --Yes--> D[Wait for request]
-C --No--> E[Crawl remaining tales]
-E --> D
-```
-
-Communication Flow:
-
-```mermaid
-sequenceDiagram
-Note left of Client: Initial Load
-
-Client->Server: Requesting Html, Js and all tales
-Server->Client: Providing Html, Js and all tales
-
-Note left of Client: User Signup
-Client->Server: Sending Credentials
-Server->Client: Status response
-
-Note left of Client: Login User
-Client->Server: Credentials sent
-Server->Client: Validation and Delivering token
-Client->Server: Request favourite tales with token
-Server->Client: Favourite Tales sent
-
-Note left of Client: Update Favourites
-Client->Server: Favourite tales list sent with token
-Server->Client: Status response
-```
+![Sequence](https://github.com/isk030/maerchen-app/raw/master/sequence.png)
 
 
 ----------
