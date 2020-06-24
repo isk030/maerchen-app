@@ -40,8 +40,8 @@ Response:
 		        {
 		            "_id": "5edb8b41e60f490bf0c644e7",
 		            "title": "Der Froschkönig oder der eiserne Heinrich",
-		            "author": "Jacob Grimm (1785-1863),
-		            "content": "In den alten Zeiten[..],
+		            "author": "Jacob Grimm (1785-1863)",
+		            "content": "In den alten Zeiten[...]",
 		            "url": "https://maerchen.com/grimm/der-froschkoenig.php"
 		        }
 			 ]
