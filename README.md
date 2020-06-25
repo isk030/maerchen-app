@@ -7,6 +7,12 @@ Its a simple app for searching and reading tales
 
 Comments and documentation can be found here: https://maerchen-doc.herokuapp.com/
 
+Current Deloyments:
+
+Client: https://maerchen-client.herokuapp.com/index.html
+
+Server/API: https://maerchen-server.herokuapp.com/
+
 ----------
 Installation
 -------------
