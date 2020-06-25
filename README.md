@@ -101,7 +101,7 @@ Response:
 ```
 
 ``` PATCH: /user/<userId>```
-Login in an user
+Update favorite tales of user
 
 Request with Authorization Header carrying login token
 ```json

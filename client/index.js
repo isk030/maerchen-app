@@ -117,7 +117,7 @@ $(document).ready(function () {
 	});
 
 	/**
-	 * Behavior vor add favourites button
+	 * Behavior vor add favorites button
 	 */
 	$(document).on('click', '#addFav', async function() {
 		let taleId = await $('#tales > div').attr('id');
@@ -155,7 +155,7 @@ $(document).ready(function () {
 	});
 	
 	/**
-	 * Behavior for remove favourites button
+	 * Behavior for remove favorites button
 	 */
 	$(document).on('click', '#removeFav', async function() {
 		let taleId = await $('#tales > div').attr('id');
@@ -164,7 +164,7 @@ $(document).ready(function () {
 		$('#favList > #'+taleId+'').remove();
 
 		/**
-		 * PATCH request updating current favourites
+		 * PATCH request updating current favorites
 		 */
 		$.ajax({
 			type: 'PATCH',
